@@ -79,10 +79,14 @@ endfunction
 //============================    ALGORITMO DES     ============================
 //==============================================================================
 
+//iNFORMACION DE INICIO
+
+clave = "ochobits"
+textoPlano = "Este es un texto de pruba para el algoritmo DES"
+
 //1.PROCESAR LA CLAVE
 
-//1.1 Solicitar clave
-clave = "ochobits"
+//1.1 Solicitar clave y convertirla en binarios
 
 A = estirarEnBits(clave)
 //1.2 Calcular las subclaves
@@ -114,14 +118,42 @@ Ks = []
 a = [1 1 2 2 2 2 2 2 1 2 2 2 2 2 2 1]
 
 for i = 1:16
-    clavePermu = RotarMatriz(clavePermu, a(i))
-    Ks = [Ks; [[permutador(clavePermu,PC2)]]]
+    clavePermu = RotarMatriz(clavePermu, a(i));
+    Ks = [Ks; permutador(clavePermu,PC2)];
 end
 
+Ks = matrix(Ks, 8, 6, 16);
 
+//2. PROCESAR EL TEXTO PLANO
 
+IP =  [58,50,42,34,26,18,10,2;
+       60,52,44,36,28,20,12,4;
+       62,54,46,38,30,22,14,6;
+       64,56,48,40,32,24,16,8;
+       57,49,41,33,25,17,9,1;
+       59,51,43,35,27,19,11,3;
+       61,53,45,37,29,21,13,5;
+       63,55,47,39,31,23,15,7];
 
+T = []
+while length(textoPlano) > 8
+    T = [T, part(textoPlano,1:8)]
+    textoPlano = part(textoPlano,9:length(textoPlano))
+end
+T = [T, textoPlano]
 
+TBinarios = []
+for i=1:length(length(T))
+    TBinarios = [TBinarios, estirarEnBits(T(i))]
+end
 
+TBinarios = matrix(TBinarios,8,8, length(length(T)))
 
+TextoPermut = []
+
+for i=1:length(length(T))
+    TextoPermut = [TextoPermut; permutador(TBinarios(:,:,i),IP)]
+end
+
+TextoPermut = matrix(TextoPermut,8,8, length(length(T)))
 
