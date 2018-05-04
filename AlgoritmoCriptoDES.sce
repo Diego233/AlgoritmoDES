@@ -135,6 +135,7 @@ IP =  [58,50,42,34,26,18,10,2;
        61,53,45,37,29,21,13,5;
        63,55,47,39,31,23,15,7];
 
+//Separamos en bloques de ocho caractere, si faltan no hay problema
 T = []
 while length(textoPlano) > 8
     T = [T, part(textoPlano,1:8)]
@@ -142,18 +143,21 @@ while length(textoPlano) > 8
 end
 T = [T, textoPlano]
 
+//Converimos cada caracter en binario cada grupo de ocho caracteres en una bloque y 
+//juntamos los bloques en una matriz de 3 dimenciones
 TBinarios = []
 for i=1:length(length(T))
     TBinarios = [TBinarios, estirarEnBits(T(i))]
 end
-
 TBinarios = matrix(TBinarios,8,8, length(length(T)))
 
+//Realizamos la permutacion con IP (Permutacion Inicial) a cada bloque y creamos
+//una nueva matriz de 3 dimenciones
 TextoPermut = []
-
 for i=1:length(length(T))
     TextoPermut = [TextoPermut; permutador(TBinarios(:,:,i),IP)]
 end
-
 TextoPermut = matrix(TextoPermut,8,8, length(length(T)))
+
+//Ya todo esta listo para continuar con la segunda parte del algoritmo
 
