@@ -154,3 +154,19 @@ TextoPermut = matrix(TextoPermut,8,8, length(length(T)))
 
 //Ya todo esta listo para continuar con la segunda parte del algoritmo
 
+//3. Dividimos cada bloque de 64en dos grupos de 32 bits y lo expandimos a 48 bits
+
+E = [32,1,2,3,4,5,4,5;
+     6,7,8,9,8,9,10,11;
+     12,13,12,13,14,15,16,17;
+     16,17,18,19,20,21,20,21;
+     22,23,24,25,24,25,26,27;
+     28,29,28,29,30,31,32,1]
+
+TExpandido = []
+for i=1:length(length(T))
+    TExpandido = [TExpandido; 
+                  permutador(TextoPermut(1:4,:,i),E); 
+                  permutador(TextoPermut(5:8,:,i),E)]
+end
+TExpandido = matrix(TExpandido, 12,8,length(length(T)))
