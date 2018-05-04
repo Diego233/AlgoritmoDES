@@ -62,17 +62,10 @@ function out = permutador(ArrayBinario, MatrizPermutadora)
     end
 endfunction
 
-function R = rotadorIzquierda(vector, cantidadBits)
-    //Esta funcion rota los elementos del vector de bits hacia la izquierda
-    R = [vector(cantidadBits+1:length(vector)), vector(1:cantidadBits)]
-endfunction
-
 function out = RotarMatriz(M, columnas)
     //Esta funcion rota las columnas de una matriz hacia la izquierda
-    out = []
-    for i = 1:7:56
-        out = [out; rotadorIzquierda(M'(i:i+6)',columnas)]
-    end
+    [f,c] = size(M);
+    out = [ out(:,columnas+1:c), out(:,1:columnas)]
 endfunction
 
 //==============================================================================
@@ -119,7 +112,7 @@ a = [1 1 2 2 2 2 2 2 1 2 2 2 2 2 2 1]
 
 for i = 1:16
     clavePermu = RotarMatriz(clavePermu, a(i));
-    Ks = [Ks; permutador(clavePermu,PC2)];
+    Ks = [Ks; permutador(clavePermu, PC2)];
 end
 
 Ks = matrix(Ks, 8, 6, 16);
