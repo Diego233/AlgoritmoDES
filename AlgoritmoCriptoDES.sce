@@ -13,6 +13,9 @@
 //= Bibliografia:
 //= http://www.satorre.eu/descripcion_algoritmo_des.pdf
 //= https://www.youtube.com/watch?v=hTLpMm7m5XY
+//= 
+//= GitHub
+//= https://github.com/Diego233/AlgoritmoDES.git
 //==============================================================================
 
 
